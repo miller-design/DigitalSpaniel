@@ -1,0 +1,87 @@
+/*
+	Grid Mixins
+  some predefined mixins to help structure pages, layouts & components.
+*/
+
+@mixin grid($columns: var(--project-cols)) {
+	display: grid;
+	box-sizing: border-box;
+	column-gap: var(--project-gutter);
+
+	/*
+    grid for screens larger than site max width, includes extra cols added
+    width --max-grid var. clever way of adding a max width without using
+    'max-width' from from: https://ethanmarcotte.com/wrote/css-grid-without-max-width/
+  */
+	@include media('>sitewidth') {
+		--max-grid: calc(
+			var(--project-site-max-width) / 2 + var(--project-site-margin) + var(--project-gutter) *
+				2
+		);
+
+		grid-template-columns:
+			[full-start]
+			var(--project-site-margin)
+			calc(50vw - var(--max-grid)) // add max width constraint
+			[content-start]
+			repeat($columns, 1fr)
+			[content-end]
+			calc(50vw - var(--max-grid)) // add max width constraint
+			var(--project-site-margin)
+			[full-end];
+	}
+
+	/*
+    grid used for screens smaller than site max width screens, it doesn't include
+    --max-grid var so has fewer cols, these must be removed so we don't get extra
+    'column-gap's applied
+  */
+	@include media('<sitewidth') {
+		// we need smaller page margins because of the extra empty 'column-gap'
+		--col-spacer: calc(var(--project-site-margin) - var(--project-gutter));
+
+		grid-template-columns:
+			[full-start]
+			var(--col-spacer)
+			[content-start]
+			repeat($columns, 1fr)
+			[content-end]
+			var(--col-spacer)
+			[full-end];
+	}
+
+	// fallback for incase grid is not supported
+	@supports not (display: grid) {
+		display: block;
+		width: 100%;
+	}
+}
+
+/*
+	Site Max Width mixin
+	used for default site max width, prevents having to apply values multiple times
+	$add_padding: boolean value (used to apply padding values)
+*/
+@mixin site-max-width($add_padding: true) {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: var(--project-site-max-width);
+
+	@if $add_padding == true {
+		@include site-padding;
+	}
+}
+
+/*
+	Site Padding
+	used for default site spacing on the left and right padding is removed if
+  breakpoint for max width is hit
+*/
+
+@mixin site-padding() {
+	@include media('<sitewidth') {
+		padding-left: var(--project-site-margin);
+		padding-right: var(--project-site-margin);
+	}
+}

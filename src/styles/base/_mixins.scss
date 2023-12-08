@@ -1,0 +1,201 @@
+/* ==========================================================================
+	Site Transition
+	Apply transitions consistently across the project
+========================================================================== */
+
+@mixin site-transition($type: all, $speed: 1.2s, $delay: 0s) {
+	transition: $type $speed $delay $standard-ease;
+}
+
+/*
+	Variable Spacing (v-spacing)
+	Ideally to be used with values set in the config file
+*/
+
+$resolution-range-bottom: map-get($breakpoints, xsmall);
+$resolution-range-top: map-get($breakpoints, xxlarge);
+
+@function get-linear-size($mobile-size, $desktop-size) {
+	$a: calc(
+		($desktop-size - $mobile-size) /
+			($resolution-range-top - $resolution-range-bottom)
+	);
+	$b: -$a * $resolution-range-bottom;
+
+	@return calc(#{$a} * 100vw + #{$b + $mobile-size});
+}
+
+@mixin v-spacing($field, $mobile-size, $desktop-size) {
+	#{$field}: get-linear-size($mobile-size, $desktop-size);
+
+	@include media('>=xlarge') {
+		#{$field}: $desktop-size;
+	}
+
+	@include media('<xsmall') {
+		#{$field}: $mobile-size;
+	}
+}
+
+/*
+	Site Spacing
+  Mixin to be used for all global spacing for the site
+  this is to create an easy to use spacing system.
+  if spacing needs overriding for a certain module then
+  a new value can be passed in else it uses the predefined
+  size from our config variables
+*/
+@mixin site-spacing(
+	$placement: bottom,
+	$mobile: $global-spacing-small,
+	$desktop: $global-spacing-large
+) {
+	// padding-#{$field}
+	@include v-spacing(padding-#{$placement}, $mobile, $desktop);
+}
+
+/*
+  Tracking
+	Tracking Convert XD, illustrator, indesign and photoshop
+  tracking into letter spacing.
+*/
+@function tracking($target) {
+	@return calc(($target / 1000) * 1em);
+}
+
+@mixin tracking($target) {
+	letter-spacing: tracking($target);
+}
+
+/*
+  Line Height
+  pass in the photoshop / Xd font size and line height
+  line height value will then be converted into unitless value and applied
+*/
+@function strip-units($number) {
+	@return math.div($number, $number * 0 + 1);
+}
+
+@mixin line-height($ps-font-size, $ps-line-height) {
+	line-height: math.div(
+		strip-units($ps-line-height),
+		strip-units($ps-font-size)
+	);
+}
+
+/*
+	V-Type (Variable type)
+  Mixin to be used when generating all the font styles for the site
+  This mixin will make sure that all type is responsive and has
+  unitless line heights
+*/
+@mixin v-type($min-font-size, $max-font-size, $line-height) {
+	// if values are identical then output the simple value
+	@if $max-font-size == $min-font-size {
+		font-size: $max-font-size;
+	} @else {
+		@include v-spacing(font-size, $min-font-size, $max-font-size);
+	}
+
+	@include line-height($max-font-size, $line-height);
+}
+
+/*
+  Get scss variable function
+	used to retreive varbailes from an scss variable array
+  this will default to $css-variables set in the config file
+	$type = type is the name you set for your nested varaible array
+	$size = is the nested variable you wish to get.
+	@returns the value of the specified variable
+*/
+@function get-scss-variable($type, $size, $scss_var: $css-variables) {
+	@return map-get(map-get($scss_var, $type), $size);
+}
+
+/*
+  CSS Var Loop
+	loops through varbailes from the $css-variables or from
+  another supplied array & outputs a css var
+	$value = used to get the correct value
+*/
+@mixin css-var-loop($value, $scss_var: $css-variables) {
+	@each $project-key, $project-top-level in $scss_var {
+		@each $project-child-key, $project-value in $project-top-level {
+			@if $project-child-key == $value {
+				--project-#{$project-key}: #{get-scss-variable(
+						#{$project-key},
+						$size: #{$project-child-key}
+					)};
+			}
+		}
+	}
+}
+
+/*
+  Get Var Loop
+	used to create css var based on the current breakpoint
+  this will eliminate the need for creating multiple vars just for resposive
+*/
+@mixin get-var-loop($breakpoint) {
+	@if $breakpoint == 'xsmall' {
+		@include css-var-loop($breakpoint);
+	} @else {
+		@include media('>=#{$breakpoint}') {
+			@include css-var-loop($breakpoint);
+		}
+	}
+}
+
+/*
+  Set Aspect Ratio
+	Used to set aspect ratio size for an element if aspect ratio is
+  supported then it gets used if not the fallback padding size is used
+*/
+@mixin set-aspect-ratio($ratio, $fallback: 62.5%) {
+	padding-bottom: $fallback;
+
+	@supports (aspect-ratio: 1) {
+		aspect-ratio: $ratio;
+		padding-bottom: initial;
+	}
+}
+
+/*
+	Sibling Fade
+  Fade out all other child elements apart from the one you are hovering over
+*/
+@mixin sibling-fade() {
+	// Prevents :hover from triggering in the gaps between items
+	pointer-events: none;
+
+	// Bringing the child items back in, even though the parent is hidden
+	> * {
+		pointer-events: auto;
+		transition: 600ms opacity 100ms $standard-ease;
+	}
+
+	// Fade out all items when the parent is hovered
+	// Fade in the currently hovered item
+	@media (hover: hover) {
+		&:hover > * {
+			opacity: 0.4;
+		}
+
+		> *:hover {
+			opacity: 1;
+			transition-delay: 0ms, 0ms;
+		}
+	}
+}
+
+/*
+	Hover
+  simple hover mixin that ensures hover affects wont effect touch devices
+*/
+@mixin hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}

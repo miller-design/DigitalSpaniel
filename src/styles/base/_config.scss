@@ -1,0 +1,77 @@
+/*
+  Global Variables - available in SCSS and CSS
+  In SCSS use function to get value e.g. get-scss-variable("cols","medium")
+  or better still use the css var version. e.g. var(--project-cols)
+*/
+
+$css-variables: (
+	cols: (
+		xsmall: 8,
+		medium: 12
+	),
+	site-margin: (
+		xsmall: 16px,
+		medium: 60px
+	),
+	gutter: (
+		xsmall: 16px,
+		medium: 48px
+	),
+	site-max-width: (
+		xsmall: 3000px
+	)
+);
+
+/*
+  Site Breakpoints
+*/
+
+$sitewidth: map-get(map-get($css-variables, 'site-max-width'), 'xsmall') +
+	(map-get(map-get($css-variables, 'site-margin'), 'medium') * 2);
+
+$breakpoints: (
+	xxsmall: 420px,
+	xsmall: 550px,
+	small: 768px,
+	medium: 1024px,
+	xmedium: 1200px,
+	large: 1440px,
+	xlarge: 1920px,
+	xxlarge: 2200px,
+	sitewidth: $sitewidth
+);
+
+/*
+  Colours
+*/
+
+$c-black: #1f1f1f;
+$c-white: #fff;
+$c-grey: #757575;
+$c-light-grey: #d3d3d3;
+$c-red: #d60326;
+$c-green: #00a239;
+
+/*
+  Z-index
+  use these values to make sure your z-index values dont
+  get out of hand in the project
+*/
+
+$z-index-base: 0;
+$z-index-one: 10;
+$z-index-two: 20;
+$z-index-three: 30;
+
+/*
+  Animation / Transition eases
+*/
+
+$standard-ease: cubic-bezier(0.25, 1, 0.5, 1);
+
+/*
+  global spacing values
+  these values are to be used inside the global spacing mixin
+*/
+$global-spacing-small: 80px;
+$global-spacing-large: 200px;

@@ -1,0 +1,15 @@
+/*
+  Type mixins
+  Build out mixins here to be used for all
+  font needs across the site
+*/
+
+@mixin momentum() {
+	font-family: var(--font-MonumentGrotesk);
+	font-style: normal;
+}
+
+@mixin H1() {
+	@include momentum;
+	@include v-type(30px, 60px, 60px);
+}

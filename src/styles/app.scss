@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+@import '../../node_modules/include-media/dist/_include-media.scss';
+@import 'base/reset';
+@import 'base/config';
+@import 'base/mixins';
+@import 'base/type';
+@import 'base/grid';
+@import 'base/animations';
+
+// page specific styles
+// @import 'pages/home';

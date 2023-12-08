@@ -1,0 +1,16 @@
+// 	animation: bgColorPulse 2s linear infinite;
+
+@keyframes bgColorPulse {
+
+	0% {
+		background-color: $c-grey;
+	}
+
+	50% {
+		background-color: $c-light-grey;
+	}
+
+	to {
+		background-color: $c-grey;
+	}
+}

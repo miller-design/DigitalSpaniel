@@ -1,0 +1,21 @@
+.container {
+	width: 100%;
+	position: relative;
+	background-color: blueviolet;
+	height: 100vh;
+	align-items: center;
+	align-content: center;
+
+	@include grid;
+
+	> * {
+		grid-column: content;
+		text-align: center;
+		color: white;
+		margin: 0 auto;
+	}
+
+	> div {
+		margin-top: 40px;
+	}
+}

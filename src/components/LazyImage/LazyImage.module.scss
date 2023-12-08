@@ -1,0 +1,18 @@
+.container {
+	position: relative;
+	backface-visibility: hidden;
+	background-color: #ddd;
+	transform: translate3d(0, 0, 0);
+	width: 100%;
+
+	@include set-aspect-ratio(var(--img-ratio), var(--img-ratio-fallback));
+
+	.img {
+		backface-visibility: hidden;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+}

@@ -1,0 +1,56 @@
+.playerWrapper {
+  position: relative;
+  background-color: $c-grey;
+  animation: bgColorPulse 3s linear infinite;
+  position: relative;
+  width: 80vw;
+
+  @include media(">=small") {
+    width: 50vw;
+  }
+
+  &.loaded {
+    animation: none;
+  }
+}
+
+.reactPlayer {
+  width: 100%;
+
+  video {
+    width: 100%
+  }
+}
+
+
+.reactPlayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+
+  video {
+    object-fit: cover;
+  }
+}
+
+.loadingState {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // poster image
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  // loading state if no poster
+  p {
+    width: 100%;
+    text-align: center;
+    color: $c-black;
+  }
+}
