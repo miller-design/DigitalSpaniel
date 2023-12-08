@@ -1,6 +1,4 @@
-# Project: SpaceCowboy 🤠
-
-Project 'SpaceCowboy 🤠' is a Next.js boilerplate, serving as an excellent starting point for well-structured, opinionated projects. It provides the essential configurations, libraries, and project organization needed to kickstart your development.
+# Project: Digital Spaniel 🐶
 
 This project is based on Next.js v14 and currently uses the 'app' directory, although the 'pages' directory can still be added and used as needed.
 
