@@ -85,3 +85,20 @@
 		padding-right: var(--project-site-margin);
 	}
 }
+
+@mixin inner-grid($columns: var(--project-cols)) {
+	display: grid;
+	box-sizing: border-box;
+	column-gap: var(--project-gutter);
+
+	grid-template-columns:
+		[content-start]
+		repeat($columns, 1fr)
+		[content-end];
+
+	// fallback for incase grid is not supported
+	@supports not (display: grid) {
+		display: block;
+		width: 100%;
+	}
+}

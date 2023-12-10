@@ -1,0 +1,65 @@
+
+.header {
+	--project-pen-colour: #{$c-white};
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: $z-index-three;
+
+	@include v-spacing(padding-top, 15px, 30px);
+	@include v-spacing(padding-bottom, 15px, 30px);
+	@include grid;
+}
+
+.left,
+.right {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.left {
+	justify-content: flex-start;
+	grid-column: content / span 6;
+}
+
+.right {
+	justify-content: flex-end;
+	grid-column: span 6 / content;
+
+	nav {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		column-gap: 65px;
+
+		@include media("<medium") {
+			display: none;
+		}
+
+		a {
+			text-decoration: none;
+			color: var(--project-pen-colour);
+
+			@include P2(600);
+			@include fade-hover;
+		}
+	}
+}
+
+.logowrap {
+	width: 150px;
+	height: 75px;
+	display: flex;
+
+	@include media(">=medium") {
+		width: 195px;
+		height: 90px;
+	}
+
+	img {
+		object-fit: contain;
+	}
+}

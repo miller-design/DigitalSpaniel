@@ -1,10 +1,11 @@
 import './globals.scss'
 import type { Metadata } from 'next'
-import { momentum, inter } from './../lib/fonts'
+import { openSans } from './../lib/fonts'
+import { SiteHeader } from '@/components/SiteHeader/SiteHeader'
 
 export const metadata: Metadata = {
-  title: 'Boilerplate',
-  description: 'Boilerplate description field',
+  title: 'Digital Spaniel - Brand, Development & Marketing Agency',
+  description: 'creating brand experiences which are memorable and distinct.',
 }
 
 export default function RootLayout({
@@ -12,9 +13,41 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const linksTestData = [
+    {
+      title: 'Services',
+      url: '/',
+      target: '',
+    },
+    {
+      title: 'Work',
+      url: '/#',
+      target: '',
+    },
+    {
+      title: 'About',
+      url: '/#',
+      target: '',
+    },
+    {
+      title: 'Blog',
+      url: '/#',
+      target: '',
+    },
+    {
+      title: 'Contact',
+      url: '/#',
+      target: '',
+    },
+  ]
+
   return (
     <html lang="en">
-      <body className={`${momentum.variable} ${inter.variable}`}>{children}</body>
+      <body className={`${openSans.variable}`}>
+        <SiteHeader links={linksTestData}/>
+        {children}
+      </body>
     </html>
   )
 }

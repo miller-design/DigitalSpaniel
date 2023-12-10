@@ -199,3 +199,41 @@ $resolution-range-top: map-get($breakpoints, xxlarge);
 		}
 	}
 }
+
+@mixin fade-hover {
+	transition: 400ms opacity ease;
+	opacity: 1;
+	cursor: pointer;
+
+	@include hover {
+		opacity: 0.4;
+	}
+}
+
+/*
+	Sibling Fade
+  Fade out all other child elements apart from the one you are hovering over
+*/
+@mixin sibling-fade() {
+	// Prevents :hover from triggering in the gaps between items
+	pointer-events: none;
+
+	// Bringing the child items back in, even though the parent is hidden
+	> * {
+		pointer-events: auto;
+		transition: 600ms opacity 100ms $standard-ease;
+	}
+
+	// Fade out all items when the parent is hovered
+	// Fade in the currently hovered item
+	@media (hover: hover) {
+		&:hover > * {
+			opacity: 0.4;
+		}
+
+		> *:hover {
+			opacity: 1;
+			transition-delay: 0ms, 0ms;
+		}
+	}
+}

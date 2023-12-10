@@ -26,8 +26,6 @@ type LazyImgProps = {
 	intrinsic?: boolean
 }
 
-
-
 const LazyImage: React.FC<LazyImgProps> = ({
 	image,
 	width,

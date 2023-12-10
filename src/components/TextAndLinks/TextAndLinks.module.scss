@@ -1,0 +1,178 @@
+
+.container {
+	position: relative;
+
+	@include site-spacing;
+
+	@include media(">=medium") {
+		@include v-spacing(margin-top, -$global-spacing-small, -$global-spacing-large);
+	}
+}
+
+.inner {
+	background-color: $c-off-white;
+
+	@include grid;
+	@include site-spacing(top);
+	@include site-spacing(bottom);
+}
+
+.left {
+	grid-column: content;
+	padding-bottom: 60px;
+
+	@include media(">=medium") {
+		padding-bottom: 0;
+		grid-column: content / span 6;
+		grid-auto-rows: min-content;
+		align-content: center;
+
+		@include inner-grid(6);
+	}
+
+	> * {
+		grid-column: 1 / -1;
+		align-self: center;
+
+		@include media(">=large") {
+			grid-column: 2 / -2;
+			align-self: center;
+		}
+	}
+}
+
+.right {
+	display: flex;
+	grid-column: content;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	@include v-spacing(row-gap, 30px, 60px);
+
+	@include media(">=medium") {
+		grid-column: span 6 / content;
+	}
+
+	@include media(">=medium") {
+		grid-column: 8 / -2;
+	}
+
+	@include media(">=xlarge") {
+		grid-column: 8 / -3;
+	}
+
+	@include media(">=sitewidth") {
+		grid-column: 9 / -4;
+	}
+}
+
+
+.title {
+
+	@include v-spacing(margin-bottom, 20px, 50px);
+	@include H1;
+
+	&::first-line {
+		color: $c-black;
+	}
+}
+
+.text {
+	width: 80%;
+	margin-top: 0;
+
+	@include v-spacing(margin-bottom, 20px, 50px);
+	@include P1;
+}
+
+.link {
+
+	@include Link;
+}
+
+.linksWrapper {
+	width: 100%;
+
+	@include media(">=xsmall") {
+		width: 50%;
+	}
+}
+
+.linkTitle {
+	width: 100%;
+	text-transform: uppercase;
+	color: $c-black;
+
+	@include P1(600);
+	@include v-spacing(margin-bottom, 15px, 25px);
+	line-height: 1; // override to correct spacing better
+}
+
+.linkList {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	@include sibling-fade;
+
+	li {
+		display: flex;
+
+		&:not(:first-child) {
+
+			a {
+				@include v-spacing(padding-top, 7px, 12px);
+			}
+		}
+
+		&:not(:last-child) {
+
+			a {
+				@include v-spacing(padding-bottom, 7px, 12px);
+			}
+		}
+
+		@include hover {
+
+			.chevron {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+	}
+
+	a {
+		color: $c-steel;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		column-gap: 10px;
+
+		@include P1(600);
+	}
+
+	.chevron {
+		display: flex;
+		position: relative;
+		background-color: $c-steel;
+		border-radius: 30px;
+		opacity: 0;
+		transform: translateX(-5px);
+		transition: 800ms opacity ease, 800ms transform ease;
+
+		@include v-spacing(width, 18px, 25px);
+		@include v-spacing(height, 18px, 25px);
+
+		svg {
+			position: absolute;
+			color: $c-white;
+			left: 48%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+
+			@include v-spacing(width, 10px, 16px);
+			@include v-spacing(height, 10px, 16px);
+		}
+	}
+}

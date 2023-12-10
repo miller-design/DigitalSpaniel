@@ -1,0 +1,135 @@
+
+.container {
+	position: relative;
+
+	@include grid;
+	@include site-spacing;
+}
+
+.top {
+	grid-column: content;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	@include v-spacing(margin-bottom, 30px, 50px);
+
+	> * {
+		width: 90%;
+		text-align: center;
+
+		@include media(">=medium") {
+			width: 70%;
+		}
+
+		@include media(">=xmedium") {
+			width: 60%;
+		}
+
+		@include media(">=large") {
+			width: 40%;
+		}
+	}
+}
+
+.bottom {
+	grid-column: full;
+
+	:global(.swiper-slide) {
+
+		.imageContainer img {
+			transform: scale(1.1);
+		}
+	}
+
+	:global(.swiper-slide-active) {
+
+		.imageContainer img {
+			transform: scale(1);
+		}
+	}
+}
+
+.title {
+	color: $c-black;
+
+	@include v-spacing(margin-bottom, 10px, 16px);
+	@include H1;
+}
+
+.text {
+
+	@include P1;
+}
+
+.carousleSlide {
+	width: 70%;
+	align-self: stretch;
+	display: flex;
+	justify-content: center;
+
+	@include media("<small") {
+		width: 90%;
+	}
+}
+
+.imageContainer {
+	width: 60%;
+	display: flex;
+	overflow: hidden;
+
+	@include media("<small") {
+		width: 50%;
+	}
+
+	img {
+		width: 100%;
+		transition: 600ms transform ease;
+		object-fit: cover;
+	}
+}
+
+.textContainer {
+	width: 40%;
+	background-color: $c-black;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	@include media("<small") {
+		width: 50%;
+	}
+
+	> * {
+		color: $c-white;
+	}
+
+	.slideTitle {
+		margin-top: 0;
+		margin-bottom: 10px;
+		text-transform: capitalize;
+
+		@include H4;
+	}
+
+	.slideText {
+		width: 80%;
+
+		@include P3;
+	}
+
+	.slideLink {
+
+		@include Link;
+
+		// color overrides
+		color: $c-white;
+
+		&::after {
+			background-color: $c-white;
+		}
+	}
+}

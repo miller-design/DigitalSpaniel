@@ -1,0 +1,91 @@
+
+.container {
+	position: relative;
+
+	@include grid;
+	@include site-spacing;
+}
+
+.left {
+	grid-row: 2;
+	grid-column: content;
+
+	@include media("<medium") {
+		padding-top: 60px;
+	}
+
+	@include media(">=medium") {
+		grid-row: 1;
+		grid-column: content / span 6;
+		grid-auto-rows: min-content;
+		align-content: center;
+
+		@include inner-grid(6);
+	}
+
+	> * {
+		grid-column: 1 / -1;
+		align-self: center;
+
+		@include media(">=large") {
+			grid-column: 2 / -2;
+			align-self: center;
+		}
+	}
+}
+
+.right {
+	display: flex;
+	grid-row: 1;
+	grid-column: full;
+
+	@include media(">=medium") {
+		grid-column: span 7 / full;
+		height: 100vh;
+	}
+
+	@include media(">=sitewidth") {
+		grid-column: span 8 / full;
+	}
+
+	img {
+		width: 100%;
+
+		@include media(">=medium") {
+			height: 100vh;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+}
+
+.tags {
+	color: $c-red;
+
+	@include v-spacing(margin-bottom, 15px, 45px);
+	@include P4(600);
+}
+
+.title {
+	color: $c-steel;
+
+	@include v-spacing(margin-bottom, 20px, 50px);
+	@include H1;
+
+	&::first-line {
+		color: $c-black;
+	}
+}
+
+.text {
+	width: 80%;
+	margin-top: 0;
+
+	@include v-spacing(margin-bottom, 20px, 50px);
+	@include P1;
+}
+
+.link {
+
+	@include Link;
+}

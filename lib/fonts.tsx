@@ -1,5 +1,5 @@
-import localFont from 'next/font/local'
-import { Inter } from 'next/font/google'
+// import localFont from 'next/font/local'
+import { Open_Sans } from 'next/font/google'
 
 /*
   using next font to add our local font to the site
@@ -8,24 +8,24 @@ import { Inter } from 'next/font/google'
 */
 
 // setting up local font below
-const momentum = localFont({
-	display: 'fallback',
-	variable: '--font-Momentum',
-	src: [
-		{
-			path: '../public/fonts/momentum/MonumentGrotesk-Medium.woff2',
-			weight: '500'
-		}
-	]
-})
+// const momentum = localFont({
+// 	display: 'fallback',
+// 	variable: '--font-Momentum',
+// 	src: [
+// 		{
+// 			path: '../public/fonts/momentum/MonumentGrotesk-Medium.woff2',
+// 			weight: '500'
+// 		}
+// 	]
+// })
 // setting up a google font below
 // define your variable fonts
-const inter = Inter({
+const openSans = Open_Sans({
 	display: 'fallback',
-	variable: '--font-Inter',
-	weight: ['400', '700'],
+	variable: '--font-open-sans',
+	weight: ['400', '600'],
 	subsets: ['latin']
 })
 
 
-export {momentum, inter}
+export { openSans }

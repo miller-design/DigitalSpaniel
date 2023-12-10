@@ -11,11 +11,14 @@ $css-variables: (
 	),
 	site-margin: (
 		xsmall: 16px,
-		medium: 60px
+		medium: 60px,
+		large: 100px,
+		xlarge: 170px,
 	),
 	gutter: (
 		xsmall: 16px,
-		medium: 48px
+		medium: 32px,
+		large: 50px
 	),
 	site-max-width: (
 		xsmall: 3000px
@@ -45,11 +48,13 @@ $breakpoints: (
   Colours
 */
 
-$c-black: #1f1f1f;
+$c-black: #19293A;
+$c-steel: #506473;
 $c-white: #fff;
+$c-off-white: #EDEFF1;
 $c-grey: #757575;
 $c-light-grey: #d3d3d3;
-$c-red: #d60326;
+$c-red: #C0345E;
 $c-green: #00a239;
 
 /*
