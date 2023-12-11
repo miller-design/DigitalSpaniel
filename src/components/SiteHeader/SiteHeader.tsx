@@ -4,6 +4,8 @@ import styles from './SiteHeader.module.scss'
 import Link from 'next/link'
 
 import Image from 'next/image'
+import { useCallback, useEffect, useState } from 'react'
+import { Burger } from '../Burger/Burger'
 
 type Link = {
 	target?: string
@@ -16,6 +18,40 @@ type SiteHeaderProps = {
 }
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({ links }) => {
+	const scrollThreshHold = 10
+	const [y, setY] = useState(0)
+	const [headerInView, setHeaderIn] = useState(true)
+	const [headerScaled, setHeaderScaled] = useState(false)
+
+	const handleScroll = useCallback((e: any) => {
+			const window = e.currentTarget
+
+			if (window.scrollY > scrollThreshHold && y < window.scrollY && headerInView) {
+				setHeaderIn(false)
+			} else if (scrollY <= scrollThreshHold && !headerInView || y > window.scrollY && !headerInView) {
+				setHeaderIn(true)
+			}
+
+			if(window.scrollY > scrollThreshHold && !headerScaled) {
+				setHeaderScaled(true)
+			} else if(window.scrollY <= scrollThreshHold && headerScaled) {
+				setHeaderScaled(false)
+			}
+
+			setY(window.scrollY)
+
+	}, [y, headerInView, headerScaled]);
+
+	useEffect(() => {
+		setY(window.scrollY)
+
+		window.addEventListener("scroll", handleScroll)
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll)
+		}
+	}, [handleScroll])
+
 
 	const displayLogo = () => {
 		return (
@@ -37,7 +73,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ links }) => {
 	}
 
 	return (
-		<header className={styles.header}>
+		<header className={`${styles.header} ${headerInView ? styles.headerActive : ''} ${headerScaled ? styles.headerSmall : ''}`}>
 				<div className={styles.left}>
 					{/* show me the logo  */}
 					{displayLogo()}
@@ -47,6 +83,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ links }) => {
 					<nav>
 						{links && linksData()}
 					</nav>
+					<Burger />
 				</div>
 		</header>
 	)

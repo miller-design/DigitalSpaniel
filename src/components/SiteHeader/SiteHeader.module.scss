@@ -7,15 +7,45 @@
 	left: 0;
 	width: 100%;
 	z-index: $z-index-three;
+	transition: 400ms transform ease, 400ms background-color ease;
+	transform: translateY(-100%);
 
 	@include v-spacing(padding-top, 15px, 30px);
 	@include v-spacing(padding-bottom, 15px, 30px);
 	@include grid;
+
+	&.headerActive {
+		transform: translateY(0);
+	}
+
+	&.headerSmall {
+		background-color: $c-white;
+		transition: 400ms transform ease, 400ms 400ms background-color ease;
+
+		--project-pen-colour: #{$c-black};
+
+		.logowrap {
+			width: 140px;
+			height: 65px;
+
+			img {
+				@include media("<medium") {
+					filter: invert(0);
+				}
+			}
+		}
+
+		.right > div span {
+
+			@include media("<medium") {
+				background-color: $c-black;
+			}
+		}
+	}
 }
 
 .left,
 .right {
-	position: relative;
 	display: flex;
 	align-items: center;
 }
@@ -35,6 +65,10 @@
 		align-items: center;
 		column-gap: 65px;
 
+		@media (hover: nohover) {
+			display: none;
+		}
+
 		@include media("<medium") {
 			display: none;
 		}
@@ -50,6 +84,7 @@
 }
 
 .logowrap {
+	transition: 500ms width ease, 500ms height ease;
 	width: 150px;
 	height: 75px;
 	display: flex;
@@ -61,5 +96,9 @@
 
 	img {
 		object-fit: contain;
+
+		@include media("<medium") {
+			filter: invert(1);
+		}
 	}
 }

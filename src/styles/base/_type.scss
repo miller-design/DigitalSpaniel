@@ -69,11 +69,20 @@
 
 	&::after {
 		content: "";
+		transition: bottom 400ms ease;
 		position: absolute;
 		bottom: -4px;
 		left: 0;
 		width: 100%;
 		height: 2px;
 		background-color: $c-red;
+		pointer-events: none;
+	}
+
+	@include hover {
+
+		&::after {
+			bottom: -8px;
+		}
 	}
 }

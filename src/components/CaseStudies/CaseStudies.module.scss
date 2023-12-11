@@ -33,19 +33,24 @@
 }
 
 .bottom {
+	position: relative;
 	grid-column: full;
 
-	:global(.swiper-slide) {
+	@include grid;
 
-		.imageContainer img {
-			transform: scale(1.1);
-		}
-	}
+	&::after {
+		content: "";
+		width: 100%;
+		background-color: $c-black;
+		position: absolute;
+		grid-column: content;
 
-	:global(.swiper-slide-active) {
-
-		.imageContainer img {
-			transform: scale(1);
+		@include media(">=medium") {
+			grid-column: 8 / -4;
+			height: 45vh;
+			min-height: 450px;
+			top: 50%;
+			transform: translateY(-50%);
 		}
 	}
 }
@@ -62,45 +67,47 @@
 	@include P1;
 }
 
-.carousleSlide {
-	width: 70%;
-	align-self: stretch;
+.textCarousel {
+	grid-row: 1;
+	grid-column: content;
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
+	position: relative;
 
-	@include media("<small") {
-		width: 90%;
-	}
-}
-
-.imageContainer {
-	width: 60%;
-	display: flex;
-	overflow: hidden;
-
-	@include media("<small") {
-		width: 50%;
+	@include media(">=medium") {
+		grid-column: 8 / -4;
 	}
 
-	img {
+	> div {
 		width: 100%;
-		transition: 600ms transform ease;
-		object-fit: cover;
+	}
+
+	:global(.swiper-slide) {
+		opacity: 0 !important;
+		transition-delay: 0 !important;
+	}
+
+	:global(.swiper-slide-active) {
+		opacity: 1 !important;
+		transition-delay: 1000ms !important;
 	}
 }
 
 .textContainer {
-	width: 40%;
-	background-color: $c-black;
-	margin-top: 5%;
-	margin-bottom: 5%;
-	padding: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	padding: 40px;
 
-	@include media("<small") {
-		width: 50%;
+	@include media(">=medium") {
+		height: 45vh;
+		min-height: 450px;
+		padding: 80px;
+	}
+
+	@include media(">=xlarge") {
+		padding: 100px;
 	}
 
 	> * {
@@ -130,6 +137,76 @@
 
 		&::after {
 			background-color: $c-white;
+		}
+	}
+}
+
+.navigationWrapper {
+	position: absolute;
+	bottom: -1px;
+	right: 0;
+	z-index: +1;
+
+	@include sibling-fade;
+
+	button {
+		width: 60px;
+		height: 60px;
+		background-color: $c-white;
+		border: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
+
+		svg {
+			position: absolute;
+			color: $c-black;
+			left: 48%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+
+			@include v-spacing(width, 15px, 22px);
+			@include v-spacing(height, 15px, 22px);
+		}
+	}
+}
+
+.imgCarousel {
+	grid-column: full;
+	position: relative;
+	pointer-events: none;
+
+	@include media(">=medium") {
+		grid-row: 1;
+	}
+
+	.carousleSlideImg {
+		width: 90%;
+
+		@include media(">=medium") {
+			width: 70%;
+		}
+
+		img {
+			width: 100%;
+			transition: 1000ms width ease;
+		}
+	}
+
+	.carousleSlideImg,
+	.carousleSlideImg img {
+
+		@include media(">=medium") {
+			height: 50vh;
+			min-height: 550px;
+			object-fit: cover;
+		}
+	}
+
+	:global(.swiper-slide-active) {
+
+		img {
+			width: 55%;
 		}
 	}
 }

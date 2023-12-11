@@ -201,7 +201,7 @@ $resolution-range-top: map-get($breakpoints, xxlarge);
 }
 
 @mixin fade-hover {
-	transition: 400ms opacity ease;
+	transition: 400ms opacity ease, 400ms color ease;
 	opacity: 1;
 	cursor: pointer;
 
