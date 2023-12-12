@@ -45,6 +45,13 @@
 		position: absolute;
 		grid-column: content;
 
+		@include media("<medium") {
+			height: 300px;
+			width: 80%;
+			right: 0;
+			bottom: 0;
+		}
+
 		@include media(">=medium") {
 			grid-column: 8 / -4;
 			height: 45vh;
@@ -75,6 +82,11 @@
 	flex-direction: column;
 	position: relative;
 
+	@include media("<medium") {
+		margin-top: 40%;
+		z-index: 2;
+	}
+
 	@include media(">=medium") {
 		grid-column: 8 / -4;
 	}
@@ -98,12 +110,16 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 40px;
+	padding: 60px 40px 40px;
+	height: 300px;
+	width: 80%;
+	margin-left: auto;
 
 	@include media(">=medium") {
 		height: 45vh;
 		min-height: 450px;
 		padding: 80px;
+		width: 100%;
 	}
 
 	@include media(">=xlarge") {
@@ -175,10 +191,7 @@
 	grid-column: full;
 	position: relative;
 	pointer-events: none;
-
-	@include media(">=medium") {
-		grid-row: 1;
-	}
+	grid-row: 1;
 
 	.carousleSlideImg {
 		width: 90%;
@@ -206,7 +219,11 @@
 	:global(.swiper-slide-active) {
 
 		img {
-			width: 55%;
+			width: 85%;
+
+			@include media(">=medium") {
+				width: 55%;
+			}
 		}
 	}
 }
