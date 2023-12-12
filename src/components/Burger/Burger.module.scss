@@ -11,11 +11,11 @@
 
 	@include fade-hover;
 
-	@media (hover: hover) {
-		display: block;
+	@include media(">=xmedium") {
+		display: none;
 	}
 
-	@include media("<medium") {
+	@include media("<xmedium") {
 		display: block;
 	}
 

@@ -2,6 +2,7 @@ import './globals.scss'
 import type { Metadata } from 'next'
 import { openSans } from './../lib/fonts'
 import { SiteHeader } from '@/components/SiteHeader/SiteHeader'
+import { BurgerMenu } from '@/components/BurgerMenu/BurgerMenu'
 
 export const metadata: Metadata = {
   title: 'Digital Spaniel - Brand, Development & Marketing Agency',
@@ -46,6 +47,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${openSans.variable}`}>
         <SiteHeader links={linksTestData}/>
+        <BurgerMenu />
         {children}
       </body>
     </html>

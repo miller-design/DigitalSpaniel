@@ -1,0 +1,57 @@
+.menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $c-steel;
+	z-index: $z-index-three;
+	display: none;
+	pointer-events: none;
+	transform: translateY(-100%);
+	transition: 600ms 600ms transform ease;
+
+	@include media("<xmedium") {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&.active {
+		pointer-events: auto;
+		transition: 600ms transform ease;
+
+		nav {
+			opacity: 1;
+			transform: translateY(0);
+			transition: 600ms 600ms transform ease, 600ms 600ms opacity ease;
+		}
+	}
+
+	nav {
+		opacity: 0;
+		transform: translate(-10px);
+		transition: 600ms transform ease, 600ms opacity ease;
+	}
+
+	nav ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+
+		li {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
+		a {
+			text-decoration: none;
+			color: $c-white;
+
+			@include H1;
+			@include fade-hover;
+		}
+	}
+}

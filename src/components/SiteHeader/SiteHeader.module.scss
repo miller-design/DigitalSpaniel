@@ -6,7 +6,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	z-index: $z-index-three;
+	z-index: $z-index-four;
 	transition: 400ms transform ease, 400ms background-color ease;
 	transform: translateY(-100%);
 
@@ -65,11 +65,7 @@
 		align-items: center;
 		column-gap: 65px;
 
-		@media (hover: nohover) {
-			display: none;
-		}
-
-		@include media("<medium") {
+		@include media("<xmedium") {
 			display: none;
 		}
 
