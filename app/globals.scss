@@ -19,4 +19,9 @@ body {
 	position: relative;
 	font-family: var(--font-open-sans);
 	color: $c-steel;
+
+	&.lock-scroll {
+		height: 100vh;
+		overflow: hidden;
+	}
 }

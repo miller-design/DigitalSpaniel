@@ -2,7 +2,9 @@
 
 import styles from './SiteHeader.module.scss'
 import Link from 'next/link'
-
+import type { RootState } from '../../../store/store'
+import { useSelector } from 'react-redux'
+import { toggleState } from '../../../slices/burgerMenuSlice'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { Burger } from '../Burger/Burger'
@@ -22,6 +24,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ links }) => {
 	const [y, setY] = useState(0)
 	const [headerInView, setHeaderIn] = useState(true)
 	const [headerScaled, setHeaderScaled] = useState(false)
+	const burgerMenuState = useSelector((state: RootState) => state.burgerMenu.active)
 
 	const handleScroll = useCallback((e: any) => {
 			const window = e.currentTarget
@@ -73,7 +76,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ links }) => {
 	}
 
 	return (
-		<header className={`${styles.header} ${headerInView ? styles.headerActive : ''} ${headerScaled ? styles.headerSmall : ''}`}>
+		<header className={`${styles.header} ${headerInView ? styles.headerActive : ''} ${headerScaled ? styles.headerSmall : ''} ${burgerMenuState ? styles.burgerMenuActive : ''}`}>
 				<div className={styles.left}>
 					{/* show me the logo  */}
 					{displayLogo()}

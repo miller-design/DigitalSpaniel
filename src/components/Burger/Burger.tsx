@@ -1,13 +1,18 @@
 import styles from './Burger.module.scss'
-import { useState } from 'react'
+import type { RootState } from '../../../store/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleState } from '../../../slices/burgerMenuSlice'
 
 const Burger = () => {
-	const [isActive, setIsActive] = useState(false)
+	const burgerValue = useSelector((state: RootState) => state.burgerMenu.active)
+  const dispatch = useDispatch()
 
 	return (
 		<div
-			className={`${styles.element} ${isActive ? styles.active : ''}`}
-			onClick={() => setIsActive(!isActive)}
+			className={`${styles.element} ${burgerValue ? styles.active : ''} Burger`}
+			onClick={() => {
+				dispatch(toggleState())
+			}}
 		>
 			<span></span>
 			<span></span>

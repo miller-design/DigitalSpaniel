@@ -19,14 +19,13 @@
 	}
 
 	&.headerSmall {
-		background-color: $c-white;
 		transition: 400ms transform ease, 400ms 400ms background-color ease;
 
 		--project-pen-colour: #{$c-black};
 
 		.logowrap {
-			width: 140px;
-			height: 65px;
+			width: 110px;
+			height: 45px;
 
 			img {
 				@include media("<medium") {
@@ -40,6 +39,16 @@
 			@include media("<medium") {
 				background-color: $c-black;
 			}
+		}
+
+		:global(.Burger) {
+			span {
+				background-color: $c-steel;
+			}
+		}
+
+		&:not(.burgerMenuActive) {
+			background-color: $c-light-steel;
 		}
 	}
 }
